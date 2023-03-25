@@ -1,0 +1,75 @@
+@model IEnumerable<DotnetCore.Models.ViewModels.Reserve_Vm>
+
+@{
+    ViewData["Title"] = "GetData";
+}
+
+
+<div class="">
+    <h5 class="fg-primary">GetData</h5>
+    <hr>
+
+    <table class="table table-hover">
+
+        <thead class="bg-primary rounded">
+            <tr class="text-light">
+                <th>row</th>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Family</th>
+                <th>Age</th>
+                <th>Status</th>
+                <th>PhoneNumber</th>
+                <th>Email</th>
+                <th>RoomNumber</th>
+                <th>Image</th>
+                <th>ReserveDateTime</th>
+                <th>StartDateTime</th>
+                <th>EndDateTime</th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+
+        <tbody> 
+            @{int i = 1;}
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.Family</td>
+                    <td>@item.Age</td>
+                    @if (item.Status == true)
+                    { 
+                        <td class="text-success">@item.Status</td>
+                    }
+                    else 
+                    {
+                        <td class="text-danger">@item.Status</td>
+                    }
+                    <td>@item.PhoneNumber</td>
+                    <td>@item.Email</td>
+                    <td>@item.RoomNumber</td>
+                    <td><img src="/FileUpload/@item.strImage" class="img-thumbnail"></td>
+                    <td>@item.ReserveDateTime</td>
+                    <td>@item.StartDateTime</td>
+                    <td>@item.EndDateTime</td>
+                    <td>
+                        <a class="btn btn-warning btn-sm my-1" asp-controller="Reserve" asp-action="Delete" asp-route-Id="@item.Id">Delete</a>
+                        @if (item.Status == true)
+                        {
+                            <a class="btn btn-danger btn-sm my-1" asp-controller="Reserve" asp-action="Edit" asp-route-Id="@item.Id">DeActive</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-success btn-sm my-1" asp-controller="Reserve" asp-action="Edit" asp-route-Id="@item.Id">Active</a>
+                        }
+                        <a class="btn btn-primary btn-sm my-1" asp-controller="Reserve" asp-action="EditItem" asp-route-Id="@item.Id">Edit</a>
+                    </td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+</div>
